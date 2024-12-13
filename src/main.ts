@@ -19,16 +19,14 @@ function addtolist(): void {
   }
 }
 if (input && button) {
-
   input.addEventListener('keydown', (e: KeyboardEvent) => {
     if (e.key === 'Enter') {
       addtolist()
     }
   })
-  button.addEventListener("click", () => {
+  button.addEventListener('click', () => {
     addtolist()
   })
-
-}else {
+} else {
   throw new Error('refresh page web')
 }
