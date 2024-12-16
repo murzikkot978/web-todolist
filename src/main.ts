@@ -4,39 +4,46 @@ console.log('Hello from typescript')
 const input = document.querySelector<HTMLInputElement>('#todo-input')
 const output = document.querySelector('.todo-element')
 const button = document.querySelector('#add-todo-button')
-const todos: string[] = []
+const myObj_deserialized = localStorage.getItem('todo_list')
+let todos: string[] = []
+if (myObj_deserialized) {
+  todos = JSON.parse(myObj_deserialized)
+  todos.forEach(addToList) // Render all existing todos on page load
+}
 
-function addtolist(): void {
-  if (input && output) {
-    const text: string = input.value.trim()
-    if (text) {
-      const li = document.createElement('li')
-
-      const myObj_deserialized = localStorage.getItem('todo_list')
-      todos.push(text.toString())
-
-      const myObj_serialized = JSON.stringify(todos)
-      localStorage.setItem('todo_list', myObj_serialized)
-
-      li.textContent = text
-      output.appendChild(li)
-      input.value = ''
-
-      console.log(localStorage)
-      console.log(myObj_deserialized)
-    }
+function addToList(todo: string) {
+  if (output) {
+    const li = document.createElement('li')
+    li.textContent = todo
+    output.appendChild(li)
   } else {
     throw new Error('refresh page web')
   }
 }
+function addToStorage(): void {
+  if (input) {
+    const text: string = input.value.trim()
+
+    if (text) {
+      todos.push(text)
+      const myObj_serialized = JSON.stringify(todos)
+      localStorage.setItem('todo_list', myObj_serialized)
+      addToList(text)
+      input.value = ''
+    } else {
+      throw new Error('refresh page web')
+    }
+  }
+}
+
 if (input && button) {
   input.addEventListener('keydown', (e: KeyboardEvent) => {
     if (e.key === 'Enter') {
-      addtolist()
+      addToStorage()
     }
   })
   button.addEventListener('click', () => {
-    addtolist()
+    addToStorage()
   })
 } else {
   throw new Error('refresh page web')
