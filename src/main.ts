@@ -5,6 +5,7 @@ const input = document.querySelector<HTMLInputElement>('#todo-input')
 const output = document.querySelector('.todo-element')
 const button = document.querySelector('#add-todo-button')
 const myObj_deserialized = localStorage.getItem('todo_list')
+const deleteAll = document.querySelector('#delete-all')
 
 interface Todo {
   text: string
@@ -86,7 +87,7 @@ function addToStorage(): void {
   }
 }
 
-if (input && button) {
+if (input && button && deleteAll && output) {
   input.addEventListener('keydown', (e: KeyboardEvent) => {
     if (e.key === 'Enter') {
       addToStorage()
@@ -94,6 +95,11 @@ if (input && button) {
   })
   button.addEventListener('click', () => {
     addToStorage()
+  })
+  deleteAll.addEventListener('click', () => {
+    output.innerHTML = ''
+    localStorage.removeItem('todo_list')
+    todos = []
   })
 } else {
   throw new Error('refresh page web')
