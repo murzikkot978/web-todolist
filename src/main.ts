@@ -98,7 +98,7 @@ if (input && button && deleteAll && output) {
   })
   deleteAll.addEventListener('click', () => {
     output.innerHTML = ''
-    localStorage.clear()
+    localStorage.removeItem('todo_list')
     todos = []
   })
 } else {
