@@ -19,7 +19,19 @@ h1 {
   gap: 5px;
 }
 
+.information {
+  display: flex;
+  flex-direction: row;
+}
+
 .todo-in {
   display: flex;
   gap: 10px;
+}
+
+.todo-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: black solid 1px;
 }

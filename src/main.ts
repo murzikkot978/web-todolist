@@ -6,10 +6,12 @@ const output = document.querySelector('.todo-element')
 const button = document.querySelector('#add-todo-button')
 const myObj_deserialized = localStorage.getItem('todo_list')
 const deleteAll = document.querySelector('#delete-all')
+const date_input = document.querySelector<HTMLInputElement>('#date-input')
 
 interface Todo {
   text: string
   status: 'done' | 'undone'
+  date: string
 }
 
 let todos: Todo[] = []
@@ -21,6 +23,7 @@ if (myObj_deserialized) {
 function addToList(todo: Todo, index: number) {
   if (output) {
     const li = document.createElement('li')
+    li.className = 'todo-list'
     li.textContent = `${todo.text} ${todo.status}`
 
     const status = document.createElement('input')
@@ -31,6 +34,13 @@ function addToList(todo: Todo, index: number) {
     })
     li.appendChild(status)
 
+    const dates = document.createElement('p')
+    if (todo.date === '') {
+      dates.textContent = 'no due date'
+    } else {
+      dates.textContent = todo.date
+    }
+    li.appendChild(dates)
     const btnToDeleteTodo = document.createElement('button')
     btnToDeleteTodo.textContent = 'DELETE'
 
@@ -71,11 +81,12 @@ function changeStatus(index: number) {
 }
 
 function addToStorage(): void {
-  if (input) {
+  if (input && date_input) {
     const text: string = input.value.trim()
+    const date: string = date_input.value.trim()
 
     if (text) {
-      const newTodo: Todo = { text, status: 'undone' }
+      const newTodo: Todo = { text, status: 'undone', date }
       todos.push(newTodo)
       const myObj_serialized = JSON.stringify(todos)
       localStorage.setItem('todo_list', myObj_serialized)
