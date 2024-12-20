@@ -39,7 +39,7 @@ function addToList(todo: Todo, index: number) {
       dates.textContent = 'no due date'
     } else {
       const time = document.createElement('time')
-      time.dateTime = 'yyyy-MM-dd'
+      time.dateTime = todo.date
       time.textContent = todo.date
       dates.appendChild(time)
     }
