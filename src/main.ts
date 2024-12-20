@@ -38,7 +38,10 @@ function addToList(todo: Todo, index: number) {
     if (todo.date === '') {
       dates.textContent = 'no due date'
     } else {
-      dates.textContent = todo.date
+      const time = document.createElement('time')
+      time.dateTime = 'yyyy-MM-dd'
+      time.textContent = todo.date
+      dates.appendChild(time)
     }
     li.appendChild(dates)
     const btnToDeleteTodo = document.createElement('button')
