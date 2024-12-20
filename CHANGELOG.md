@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.2.0](https://github.com/murzikkot978/web-todolist/compare/v1.1.0...v1.2.0) (2024-12-20)
+
+
+### Features
+
+* user can add date ([c84e90e](https://github.com/murzikkot978/web-todolist/commit/c84e90eab003e8d88e29332e18ef41dcd74084e7)), closes [#7](https://github.com/murzikkot978/web-todolist/issues/7)
+* user can change status for each todo ([a5ca346](https://github.com/murzikkot978/web-todolist/commit/a5ca346cb06a39ba31d3f41a54803a01294efa31)), closes [#3](https://github.com/murzikkot978/web-todolist/issues/3)
+* user can delete todo with button ([57fbeb4](https://github.com/murzikkot978/web-todolist/commit/57fbeb4400ddf0d4e42de21c5e5f4d4866b06b85)), closes [#2](https://github.com/murzikkot978/web-todolist/issues/2)
+* user can remove all todos with button ([42419dc](https://github.com/murzikkot978/web-todolist/commit/42419dc2f87723413cfa85029bbdc7a97585ed65)), closes [#8](https://github.com/murzikkot978/web-todolist/issues/8)
+
+
+### Bug Fixes
+
+* when you remove local storage, only the local storage you used will be deleted ([4d3789a](https://github.com/murzikkot978/web-todolist/commit/4d3789ab1c37cda5d48896342f7667e7877c1d19))
+
+
+### Miscellaneous Chores
+
+* add date in dateTime ([a6dee13](https://github.com/murzikkot978/web-todolist/commit/a6dee1392d89902ba1b330ad05e47b8c53eb4742))
+* add element time with dateTime ([07a66fa](https://github.com/murzikkot978/web-todolist/commit/07a66fa55b9a0f0d8f8f616f97dde66a92a4f756))
+
 ## [1.1.0](https://github.com/murzikkot978/web-todolist/compare/v1.0.1...v1.1.0) (2024-12-17)
 
 
