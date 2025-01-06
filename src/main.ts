@@ -16,7 +16,7 @@ if (button && input) {
 }
 function stateHandle() {
   if (button && input) {
-    if (input.value) {
+    if (input.value && input.value.length <= 200) {
       button.disabled = false
     } else {
       button.disabled = true
