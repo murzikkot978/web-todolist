@@ -3,11 +3,28 @@ import './style.css'
 console.log('Hello from typescript')
 const input = document.querySelector<HTMLInputElement>('#todo-input')
 const output = document.querySelector('.todo-element')
-const button = document.querySelector('#add-todo-button')
+const button = document.querySelector<HTMLButtonElement>('#add-todo-button')
 const myObj_deserialized = localStorage.getItem('todo_list')
 const deleteAll = document.querySelector('#delete-all')
 const date_input = document.querySelector<HTMLInputElement>('#date-input')
 
+//Button disable true||false
+if (button && input) {
+  button.disabled = true
+
+  input.addEventListener('input', stateHandle)
+}
+function stateHandle() {
+  if (button && input) {
+    if (input.value) {
+      button.disabled = false
+    } else {
+      button.disabled = true
+    }
+  }
+}
+
+//Structure todos
 interface Todo {
   text: string
   status: 'done' | 'undone'
@@ -20,6 +37,7 @@ if (myObj_deserialized) {
   todos.forEach(addToList)
 }
 
+//Function add all button and todos
 function addToList(todo: Todo, index: number) {
   if (output) {
     const li = document.createElement('li')
@@ -59,6 +77,7 @@ function addToList(todo: Todo, index: number) {
   }
 }
 
+//Function can delete todo
 function deleteTodo(index: number) {
   if (output) {
     todos.splice(index, 1)
@@ -69,6 +88,7 @@ function deleteTodo(index: number) {
   }
 }
 
+//Function change status for each todo
 function changeStatus(index: number) {
   if (output) {
     if (todos[index].status === 'done') {
@@ -83,6 +103,7 @@ function changeStatus(index: number) {
   }
 }
 
+//Function add todos, status and date for each todo in local storage
 function addToStorage(): void {
   if (input && date_input) {
     const text: string = input.value.trim()
@@ -101,14 +122,17 @@ function addToStorage(): void {
   }
 }
 
+//In this block we look all actions like click or keydown
 if (input && button && deleteAll && output) {
   input.addEventListener('keydown', (e: KeyboardEvent) => {
     if (e.key === 'Enter') {
       addToStorage()
     }
+    stateHandle()
   })
   button.addEventListener('click', () => {
     addToStorage()
+    stateHandle()
   })
   deleteAll.addEventListener('click', () => {
     output.innerHTML = ''
