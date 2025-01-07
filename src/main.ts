@@ -55,15 +55,32 @@ function addToList(todo: Todo, index: number) {
     })
     li.appendChild(status)
 
+    const today = new Date()
+    const deadline = new Date(todo.date)
+    const afterfordays = new Date(today)
+    afterfordays.setDate(afterfordays.getDate() + 4)
+
+    const formatToday = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`
+    const formatDeadline = `${deadline.getFullYear()}-${deadline.getMonth() + 1}-${deadline.getDate()}`
+
     const dates = document.createElement('p')
-    if (todo.date === '') {
-      dates.textContent = 'no due date'
+    const time = document.createElement('time')
+    time.textContent = todo.date
+    if (
+      deadline.toISOString().slice(0, 10) < today.toISOString().slice(0, 10)
+    ) {
+      dates.style.color = 'red'
+    } else if (formatDeadline === formatToday) {
+      dates.style.color = 'orange'
+    } else if (deadline > today && deadline < afterfordays) {
+      dates.style.color = 'yellow'
     } else {
-      const time = document.createElement('time')
-      time.textContent = todo.date
-      dates.appendChild(time)
+      dates.style.color = 'green'
     }
+
+    dates.appendChild(time)
     li.appendChild(dates)
+
     const btnToDeleteTodo = document.createElement('button')
     btnToDeleteTodo.textContent = 'DELETE'
 
