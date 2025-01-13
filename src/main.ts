@@ -2,14 +2,18 @@ import './style.css'
 
 console.log('Hello from typescript')
 const input = document.querySelector<HTMLInputElement>('#todo-input')
-const output = document.querySelector('.todo-element')
+const output = document.querySelector<HTMLUListElement>('.todo-element')
 const button = document.querySelector<HTMLButtonElement>('#add-todo-button')
 const myObj_deserialized = localStorage.getItem('todo_list')
 const deleteAll = document.querySelector('#delete-all')
 const date_input = document.querySelector<HTMLInputElement>('#date-input')
 const todoCreationError = document.querySelector('#todo-creation-error')
 const creationErrorMessage = document.createElement('p')
+const overdueMessage = document.querySelector('#overdue-message')
+const messageOverdue = document.createElement('p')
 creationErrorMessage.style.color = 'red'
+messageOverdue.style.background = 'red'
+messageOverdue.style.color = 'white'
 
 //Button disable true||false
 if (button && input) {
@@ -19,11 +23,7 @@ if (button && input) {
 }
 function stateHandle() {
   if (button && input) {
-    if (input.value && input.value.length <= 200) {
-      button.disabled = false
-    } else {
-      button.disabled = true
-    }
+    button.disabled = !(input.value && input.value.length <= 200)
   }
 }
 
@@ -33,7 +33,6 @@ interface Todo {
   status: 'done' | 'undone'
   date: string
 }
-
 let todos: Todo[] = []
 if (myObj_deserialized) {
   todos = JSON.parse(myObj_deserialized)
@@ -77,7 +76,6 @@ function addToList(todo: Todo, index: number) {
     } else {
       dates.style.color = 'green'
     }
-
     dates.appendChild(time)
     li.appendChild(dates)
 
@@ -89,21 +87,50 @@ function addToList(todo: Todo, index: number) {
     output.appendChild(li)
 
     btnToDeleteTodo.addEventListener('click', () => {
-      deleteTodo(index)
+      deleteTodo(index, today)
     })
+    changingOverdueMessage(todos, today)
   } else {
     throw new Error('refresh page web')
   }
 }
 
+function changingOverdueMessage(todos: Todo[], today: Date) {
+  if (overdueMessage) {
+    let overdueCount = 0
+    for (const todo of todos) {
+      if (todo.date < today.toISOString().slice(0, 10)) {
+        overdueCount++
+      }
+    }
+    if (overdueCount > 0) {
+      messageOverdue.textContent = 'You have overdue todos!!!'
+    } else {
+      messageOverdue.textContent = ''
+    }
+    overdueMessage.innerHTML = ''
+    overdueMessage.appendChild(messageOverdue)
+    console.log(overdueCount)
+  }
+}
+
 //Function can delete todo
-function deleteTodo(index: number) {
+function deleteTodo(index: number, today: Date) {
   if (output) {
     todos.splice(index, 1)
     localStorage.setItem('todo_list', JSON.stringify(todos))
-
     output.innerHTML = ''
     todos.forEach(addToList)
+    changingOverdueMessage(todos, today)
+  }
+}
+
+function deleteAllTodo() {
+  if (output) {
+    output.innerHTML = ''
+    localStorage.removeItem('todo_list')
+    todos = []
+    changingOverdueMessage(todos, new Date())
   }
 }
 
@@ -162,9 +189,7 @@ if (input && button && deleteAll && output) {
     stateHandle()
   })
   deleteAll.addEventListener('click', () => {
-    output.innerHTML = ''
-    localStorage.removeItem('todo_list')
-    todos = []
+    deleteAllTodo()
   })
 } else {
   throw new Error('refresh page web')

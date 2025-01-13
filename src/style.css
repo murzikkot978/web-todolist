@@ -35,3 +35,9 @@ h1 {
   align-items: center;
   border: black solid 1px;
 }
+
+.overdue-message {
+  display: flex;
+  height: 50px;
+  align-items: center;
+}
