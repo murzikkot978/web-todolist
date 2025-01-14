@@ -2,6 +2,10 @@ html,
 body {
   padding: 0;
   margin: 0;
+  background-image: url("blaknot.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-position-y: -45px;
 }
 
 * {
@@ -20,17 +24,6 @@ h1 {
   flex-direction: column;
   align-items: center;
   gap: 5px;
-}
-
-.one-information {
-  display: flex;
-  width: 51px;
-  height: 183.433px;
-}
-
-.information {
-  display: flex;
-  flex-direction: column;
 }
 
 .todo-in {
@@ -81,11 +74,4 @@ h1 {
 .output {
   display: flex;
   border: black solid 3px;
-}
-
-.blaknot {
-  display: flex;
-  position: absolute;
-  z-index: -1;
-  top: -44px;
 }
