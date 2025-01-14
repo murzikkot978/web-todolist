@@ -2,14 +2,21 @@ html,
 body {
   padding: 0;
   margin: 0;
+  background-image: url("blaknot.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-position-y: -45px;
 }
 
 * {
   font-family: Helvetica, Arial, sans-serif;
+  padding: 0px;
+  margin: 0px;
 }
 
 h1 {
   text-align: center;
+  margin-top: 30px;
 }
 
 .all-information {
@@ -17,11 +24,6 @@ h1 {
   flex-direction: column;
   align-items: center;
   gap: 5px;
-}
-
-.information {
-  display: flex;
-  flex-direction: row;
 }
 
 .todo-in {
@@ -34,10 +36,42 @@ h1 {
   justify-content: space-between;
   align-items: center;
   border: black solid 1px;
+  padding: 5px;
+  width: 450px;
+}
+
+.todo-list2 {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  gap: 6px;
+  border: black solid 1px;
+  padding: 5px;
+  width: 226px;
+}
+
+.ul {
+  display: flex;
+  justify-content: space-between;
 }
 
 .overdue-message {
   display: flex;
   height: 50px;
   align-items: center;
+}
+
+.todo-element {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  overflow: scroll;
+  overflow-x: hidden;
+  width: 700px;
+  height: 890px;
+}
+
+.output {
+  display: flex;
+  border: black solid 3px;
 }

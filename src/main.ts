@@ -14,6 +14,7 @@ const messageOverdue = document.createElement('p')
 creationErrorMessage.style.color = 'red'
 messageOverdue.style.background = 'red'
 messageOverdue.style.color = 'white'
+const sort = document.querySelector<HTMLButtonElement>('#sort-button')
 
 //Button disable true||false
 if (button && input) {
@@ -42,9 +43,14 @@ if (myObj_deserialized) {
 //Function add all button and todos
 function addToList(todo: Todo, index: number) {
   if (output) {
+    const ul = document.createElement('ul')
+    ul.className = 'ul'
     const li = document.createElement('li')
     li.className = 'todo-list'
-    li.textContent = `${todo.text} ${todo.status}`
+    const li2 = document.createElement('li')
+    li2.className = 'todo-list2'
+    li.textContent = `${todo.text}`
+    li2.textContent = `${todo.status}`
 
     const status = document.createElement('input')
     status.type = 'checkbox'
@@ -52,7 +58,7 @@ function addToList(todo: Todo, index: number) {
     status.addEventListener('change', () => {
       changeStatus(index)
     })
-    li.appendChild(status)
+    li2.appendChild(status)
 
     const today = new Date()
     const deadline = new Date(todo.date)
@@ -77,14 +83,16 @@ function addToList(todo: Todo, index: number) {
       dates.style.color = 'green'
     }
     dates.appendChild(time)
-    li.appendChild(dates)
+    li2.appendChild(dates)
 
     const btnToDeleteTodo = document.createElement('button')
     btnToDeleteTodo.textContent = 'DELETE'
 
-    li.appendChild(btnToDeleteTodo)
+    li2.appendChild(btnToDeleteTodo)
 
-    output.appendChild(li)
+    ul.appendChild(li)
+    ul.appendChild(li2)
+    output.appendChild(ul)
 
     btnToDeleteTodo.addEventListener('click', () => {
       deleteTodo(index, today)
@@ -134,6 +142,31 @@ function deleteAllTodo() {
   }
 }
 
+let sorted = true
+function sortTodoByDate() {
+  if (sorted) {
+    sortMinToMax(todos)
+  } else {
+    sortMaxToMin(todos)
+  }
+  sorted = !sorted
+
+  localStorage.setItem('todo_list', JSON.stringify(todos))
+  if (output) {
+    output.innerHTML = ''
+    todos.forEach(addToList)
+  }
+}
+
+function sortMinToMax(todos: Todo[]) {
+  todos.sort((a, b) => new Date(a.date).getDate() - new Date(b.date).getDate())
+  return todos
+}
+function sortMaxToMin(todos: Todo[]) {
+  todos.sort((a, b) => new Date(b.date).getDate() - new Date(a.date).getDate())
+  return todos
+}
+
 //Function change status for each todo
 function changeStatus(index: number) {
   if (output) {
@@ -177,7 +210,7 @@ function addToStorage(): void {
 }
 
 //In this block we look all actions like click or keydown
-if (input && button && deleteAll && output) {
+if (input && button && deleteAll && output && sort && date_input) {
   input.addEventListener('keydown', (e: KeyboardEvent) => {
     if (e.key === 'Enter') {
       addToStorage()
@@ -190,6 +223,13 @@ if (input && button && deleteAll && output) {
   })
   deleteAll.addEventListener('click', () => {
     deleteAllTodo()
+  })
+  sort.addEventListener('click', sortTodoByDate)
+  date_input.addEventListener('keydown', (e: KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      addToStorage()
+    }
+    stateHandle()
   })
 } else {
   throw new Error('refresh page web')

@@ -7,9 +7,9 @@
   <title>Web todolist project</title>
 </head>
 <body>
-<h1>Web todolist app</h1>
 <script type="module" src="/src/main.ts"></script>
 <div class="all-information">
+  <h1>My Day</h1>
   <div id="overdue-message"></div>
   <div class="todo-in">
     <div>
@@ -21,9 +21,12 @@
     <div>
       <button id="add-todo-button">add todo</button>
     </div>
+    <div class="sort">
+      <button id="sort-button">Sort</button>
+    </div>
   </div>
   <div id="todo-creation-error"></div>
-  <div>
+  <div class="output">
     <ul class="todo-element"></ul>
   </div>
   <div>
