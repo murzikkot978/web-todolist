@@ -20,7 +20,7 @@ function changeStatus(
 
     output.innerHTML = ''
 
-    todos.forEach((todo,i ) => {
+    todos.forEach((todo, i) => {
       addToList(todo, i, output, todos, messageOvedue, overdueMessage)
     })
   }
