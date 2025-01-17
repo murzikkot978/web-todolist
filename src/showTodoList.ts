@@ -1,7 +1,7 @@
 import type { Todo } from './main.ts'
-import { deleteTodo } from './todoActions/deleteTodo.ts'
 import { changeStatus } from './todoActions/changeStatus.ts'
 import { changingOverdueMessage } from './todoActions/changingOverdueMessage.ts'
+import { deleteTodo } from './todoActions/deleteTodo.ts'
 
 //Function add all button and todos
 function addToList(

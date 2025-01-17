@@ -1,9 +1,9 @@
 import './style.css'
-import { stateHandle } from './todoActions/stateHandle.ts'
 import { addToList } from './showTodoList.ts'
 import { addToStorage } from './storage.ts'
 import { deleteAllTodo } from './todoActions/deleteAllTodo.ts'
 import { sortTodoByDate } from './todoActions/sortTodoByDate.ts'
+import { stateHandle } from './todoActions/stateHandle.ts'
 
 console.log('Hello from typescript')
 const input = document.querySelector<HTMLInputElement>('#todo-input')

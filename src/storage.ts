@@ -1,5 +1,5 @@
-import { addToList } from './showTodoList.ts'
 import type { Todo } from './main.ts'
+import { addToList } from './showTodoList.ts'
 
 //Function add todos, status and date for each todo in local storage
 function addToStorage(
