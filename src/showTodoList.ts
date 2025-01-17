@@ -1,8 +1,17 @@
-import {type Todo, output, todos} from "./main.ts";
-import {changeStatus, deleteTodo, changingOverdueMessage} from "./modificationTodo.ts";
+import type { Todo } from './main.ts'
+import { deleteTodo } from './todoActions/deleteTodo.ts'
+import { changeStatus } from './todoActions/changeStatus.ts'
+import { changingOverdueMessage } from './todoActions/changingOverdueMessage.ts'
 
 //Function add all button and todos
-function addToList(todo: Todo, index: number) {
+function addToList(
+  todo: Todo,
+  index: number,
+  output: HTMLUListElement,
+  todos: Todo[],
+  messageOverdue: HTMLParagraphElement,
+  overdueMessage: HTMLDivElement,
+) {
   if (output) {
     const ul = document.createElement('ul')
     ul.className = 'ul'
@@ -17,7 +26,7 @@ function addToList(todo: Todo, index: number) {
     status.type = 'checkbox'
     status.checked = todo.status === 'done'
     status.addEventListener('change', () => {
-      changeStatus(index)
+      changeStatus(output, index, todos, messageOverdue, overdueMessage)
     })
     li2.appendChild(status)
 
@@ -56,12 +65,12 @@ function addToList(todo: Todo, index: number) {
     output.appendChild(ul)
 
     btnToDeleteTodo.addEventListener('click', () => {
-      deleteTodo(index, today)
+      deleteTodo(index, today, output, todos, overdueMessage, messageOverdue)
     })
-    changingOverdueMessage(todos, today)
+    changingOverdueMessage(todos, today, messageOverdue, overdueMessage)
   } else {
     throw new Error('refresh page web')
   }
 }
 
-export {addToList}
+export { addToList }
