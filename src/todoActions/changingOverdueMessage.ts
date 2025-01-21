@@ -9,7 +9,7 @@ function changingOverdueMessage(
   if (overdueMessage) {
     let overdueCount = 0
     for (const todo of todos) {
-      if (todo.date < today.toISOString().slice(0, 10)) {
+      if (todo.due_date < today.toISOString().slice(0, 10)) {
         overdueCount++
       }
     }
@@ -20,7 +20,6 @@ function changingOverdueMessage(
     }
     overdueMessage.innerHTML = ''
     overdueMessage.appendChild(messageOverdue)
-    console.log(overdueCount)
   }
 }
 

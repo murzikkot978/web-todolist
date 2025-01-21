@@ -8,6 +8,7 @@ function sortTodoByDate(
   messageOvedue: HTMLParagraphElement,
   overdueMessage: HTMLDivElement,
 ) {
+  console.log(todos)
   if (sorted) {
     sortMinToMax(todos)
   } else {
@@ -15,7 +16,6 @@ function sortTodoByDate(
   }
   sorted = !sorted
 
-  localStorage.setItem('todo_list', JSON.stringify(todos))
   if (output) {
     output.innerHTML = ''
     todos.forEach((todo, index) => {
@@ -25,11 +25,15 @@ function sortTodoByDate(
 }
 
 function sortMinToMax(todos: Todo[]) {
-  todos.sort((a, b) => new Date(a.date).getDate() - new Date(b.date).getDate())
+  todos.sort(
+    (a, b) => new Date(a.due_date).getDate() - new Date(b.due_date).getDate(),
+  )
   return todos
 }
 function sortMaxToMin(todos: Todo[]) {
-  todos.sort((a, b) => new Date(b.date).getDate() - new Date(a.date).getDate())
+  todos.sort(
+    (a, b) => new Date(b.due_date).getDate() - new Date(a.due_date).getDate(),
+  )
   return todos
 }
 
