@@ -2,7 +2,6 @@ import type { Todo } from '../main.ts'
 import { addToList } from '../showTodoList.ts'
 import { changingOverdueMessage } from './changingOverdueMessage.ts'
 
-//Function can delete todo
 function deleteTodo(
   index: number,
   today: Date,
@@ -11,15 +10,22 @@ function deleteTodo(
   messageOverdue: HTMLParagraphElement,
   OverdueMessage: HTMLDivElement,
 ) {
-  if (output) {
-    todos.splice(index, 1)
-    localStorage.setItem('todo_list', JSON.stringify(todos))
-    output.innerHTML = ''
-    todos.forEach((todo, i) => {
-      addToList(todo, i, output, todos, messageOverdue, OverdueMessage)
-    })
-    changingOverdueMessage(todos, today, messageOverdue, OverdueMessage)
-  }
+  fetch(`https://api.todos.in.jt-lab.ch/todos?id=eq.${todos[index].id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(todos[index]),
+  })
+    .then((response) => response.json())
+    .then((data) => console.log(data))
+    .catch((error) => console.error(error))
+  todos.splice(index, 1)
+  output.innerHTML = ''
+  todos.forEach((todo, i) => {
+    addToList(todo, i, output, todos, messageOverdue, OverdueMessage)
+  })
+  changingOverdueMessage(todos, today, messageOverdue, OverdueMessage)
 }
 
 export { deleteTodo }

@@ -1,4 +1,5 @@
 import type { Todo } from '../main.ts'
+import { url } from '../main.ts'
 import { changingOverdueMessage } from './changingOverdueMessage.ts'
 
 function deleteAllTodo(
@@ -9,7 +10,13 @@ function deleteAllTodo(
 ) {
   if (output) {
     output.innerHTML = ''
-    localStorage.removeItem('todo_list')
+    fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(todos),
+    })
     todos.length = 0
     changingOverdueMessage(todos, new Date(), messageOverdue, overdueMessage)
   }

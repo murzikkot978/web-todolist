@@ -7,9 +7,10 @@ import { stateHandle } from './todoActions/stateHandle.ts'
 
 console.log('Hello from typescript')
 const input = document.querySelector<HTMLInputElement>('#todo-input')
+const contentInput = document.querySelector<HTMLInputElement>('#content-input')
 const output = document.querySelector<HTMLUListElement>('.todo-element')
 const button = document.querySelector<HTMLButtonElement>('#add-todo-button')
-const myObj_deserialized = localStorage.getItem('todo_list')
+export const url = new URL('https://api.todos.in.jt-lab.ch/todos')
 const deleteAll = document.querySelector<HTMLButtonElement>('#delete-all')
 const date_input = document.querySelector<HTMLInputElement>('#date-input')
 const todoCreationError = document.querySelector<HTMLDivElement>(
@@ -34,79 +35,103 @@ if (button && input) {
 
 //Structure todos
 export interface Todo {
-  text: string
-  status: 'done' | 'undone'
-  date: string
+  id: number
+  title: string
+  content: string | null
+  due_date: string
+  done: boolean
 }
-let todos: Todo[] = []
-if (myObj_deserialized && output && overdueMessage) {
-  todos = JSON.parse(myObj_deserialized)
+
+if (url && output && overdueMessage) {
+  const response = await fetch(url)
+  const todos = await response.json()
+
   for (const [index, todo] of todos.entries()) {
     addToList(todo, index, output, todos, messageOverdue, overdueMessage)
   }
-}
 
-//In this block we look all actions like click or keydown
-if (
-  input &&
-  button &&
-  deleteAll &&
-  output &&
-  sort &&
-  date_input &&
-  overdueMessage
-) {
-  input.addEventListener('keydown', (e: KeyboardEvent) => {
-    if (e.key === 'Enter' && todoCreationError) {
-      addToStorage(
-        input,
-        date_input,
-        todoCreationError,
-        creationErrorMessage,
-        todos,
-        output,
-        messageOverdue,
-        overdueMessage,
-      )
-    }
-    stateHandle(button, input)
-  })
-  button.addEventListener('click', () => {
-    if (todoCreationError) {
-      addToStorage(
-        input,
-        date_input,
-        todoCreationError,
-        creationErrorMessage,
-        todos,
-        output,
-        messageOverdue,
-        overdueMessage,
-      )
-    }
-    stateHandle(button, input)
-  })
-  deleteAll.addEventListener('click', () => {
-    deleteAllTodo(output, todos, messageOverdue, overdueMessage)
-  })
-  sort.addEventListener('click', () => {
-    sortTodoByDate(todos, output, messageOverdue, overdueMessage)
-  })
-  date_input.addEventListener('keydown', (e: KeyboardEvent) => {
-    if (e.key === 'Enter' && todoCreationError) {
-      addToStorage(
-        input,
-        date_input,
-        todoCreationError,
-        creationErrorMessage,
-        todos,
-        output,
-        messageOverdue,
-        overdueMessage,
-      )
-    }
-    stateHandle(button, input)
-  })
-} else {
-  throw new Error('refresh page web')
+  //In this block we look all actions like click or keydown
+  if (
+    input &&
+    contentInput &&
+    button &&
+    deleteAll &&
+    output &&
+    sort &&
+    date_input &&
+    overdueMessage
+  ) {
+    input.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (e.key === 'Enter' && todoCreationError) {
+        addToStorage(
+          input,
+          contentInput,
+          date_input,
+          todoCreationError,
+          creationErrorMessage,
+          todos,
+          output,
+          messageOverdue,
+          overdueMessage,
+        )
+      }
+      stateHandle(button, input)
+    })
+    button.addEventListener('click', () => {
+      if (todoCreationError) {
+        addToStorage(
+          input,
+          contentInput,
+          date_input,
+          todoCreationError,
+          creationErrorMessage,
+          todos,
+          output,
+          messageOverdue,
+          overdueMessage,
+        )
+      }
+      stateHandle(button, input)
+    })
+    deleteAll.addEventListener('click', () => {
+      deleteAllTodo(output, todos, messageOverdue, overdueMessage)
+    })
+    sort.addEventListener('click', () => {
+      sortTodoByDate(todos, output, messageOverdue, overdueMessage)
+    })
+    date_input.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (e.key === 'Enter' && todoCreationError) {
+        addToStorage(
+          input,
+          contentInput,
+          date_input,
+          todoCreationError,
+          creationErrorMessage,
+          todos,
+          output,
+          messageOverdue,
+          overdueMessage,
+        )
+      }
+      stateHandle(button, input)
+    })
+    contentInput.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (e.key === 'Enter' && todoCreationError) {
+        addToStorage(
+          input,
+          contentInput,
+          date_input,
+          todoCreationError,
+          creationErrorMessage,
+          todos,
+          output,
+          messageOverdue,
+          overdueMessage,
+        )
+      }
+      stateHandle(button, input)
+    })
+  } else {
+    throw new Error('refresh page web')
+  }
 }

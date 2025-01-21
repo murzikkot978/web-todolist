@@ -9,20 +9,30 @@ function changeStatus(
   messageOvedue: HTMLParagraphElement,
   overdueMessage: HTMLDivElement,
 ): void {
-  console.log(`index ${index}`)
+  let status: boolean
   if (output) {
-    if (todos[index].status === 'done') {
-      todos[index].status = 'undone'
-    } else {
-      todos[index].status = 'done'
-    }
-    localStorage.setItem('todo_list', JSON.stringify(todos))
-
-    output.innerHTML = ''
-
-    todos.forEach((todo, i) => {
-      addToList(todo, i, output, todos, messageOvedue, overdueMessage)
+    status = !todos[index].done
+    fetch(`https://api.todos.in.jt-lab.ch/todos?id=eq.${todos[index].id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Prefer: 'return=representation',
+        Accept: 'application/vnd.pgrst.object+json',
+      },
+      body: JSON.stringify({ done: status }),
     })
+      .then((response) => response.json())
+      .then((data) => {
+        todos[index] = data
+        output.innerHTML = ''
+
+        todos.forEach((todo, i) => {
+          addToList(todo, i, output, todos, messageOvedue, overdueMessage)
+        })
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 }
 

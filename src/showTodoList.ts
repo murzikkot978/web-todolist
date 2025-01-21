@@ -11,7 +11,7 @@ function addToList(
   todos: Todo[],
   messageOverdue: HTMLParagraphElement,
   overdueMessage: HTMLDivElement,
-) {
+): void {
   if (output) {
     const ul = document.createElement('ul')
     ul.className = 'ul'
@@ -19,19 +19,23 @@ function addToList(
     li.className = 'todo-list'
     const li2 = document.createElement('li')
     li2.className = 'todo-list2'
-    li.textContent = `${todo.text}`
-    li2.textContent = `${todo.status}`
+    li.append(`(${todo.title}) `)
+    if (todo.content !== null) {
+      li.append(`${todo.content}`)
+    }
+    li.append(todo.id.toString())
+    li2.textContent = `${todo.done}`
 
     const status = document.createElement('input')
     status.type = 'checkbox'
-    status.checked = todo.status === 'done'
+    status.checked = todo.done
     status.addEventListener('change', () => {
       changeStatus(output, index, todos, messageOverdue, overdueMessage)
     })
     li2.appendChild(status)
 
     const today = new Date()
-    const deadline = new Date(todo.date)
+    const deadline = new Date(todo.due_date)
     const afterfordays = new Date(today)
     afterfordays.setDate(afterfordays.getDate() + 4)
 
@@ -40,7 +44,7 @@ function addToList(
 
     const dates = document.createElement('p')
     const time = document.createElement('time')
-    time.textContent = todo.date
+    time.textContent = todo.due_date
     if (
       deadline.toISOString().slice(0, 10) < today.toISOString().slice(0, 10)
     ) {
@@ -63,7 +67,6 @@ function addToList(
     ul.appendChild(li)
     ul.appendChild(li2)
     output.appendChild(ul)
-
     btnToDeleteTodo.addEventListener('click', () => {
       deleteTodo(index, today, output, todos, overdueMessage, messageOverdue)
     })
