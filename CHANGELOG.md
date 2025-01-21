@@ -1,5 +1,30 @@
 # Changelog
 
+## [2.0.0](https://github.com/murzikkot978/web-todolist/compare/v1.2.0...v2.0.0) (2025-01-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* Change in data saving. Now the data is saved to an external server.
+
+### Features
+
+* Change in data saving. Now the data is saved to an external server. ([23eb2f0](https://github.com/murzikkot978/web-todolist/commit/23eb2f06d7193ecea693e06dc62660e2f00b8641))
+* uset can sort todos by date, new style ([4f922d5](https://github.com/murzikkot978/web-todolist/commit/4f922d5a03eeded2041890cca219d6a175caf29d))
+
+
+### Bug Fixes
+
+* add background image by CSS ([1864b77](https://github.com/murzikkot978/web-todolist/commit/1864b7726f22570485fd1d92c2cb4908bc963ed0))
+
+
+### Miscellaneous Chores
+
+* foldering V2 ([d39eb83](https://github.com/murzikkot978/web-todolist/commit/d39eb8371c243e3c8f312ec4e4e1a1223b7377a1))
+* foldering V2.1 ([58f7ae7](https://github.com/murzikkot978/web-todolist/commit/58f7ae77190e3a1682d22e1e8e72776cd9861943))
+* format code ([7ee03c7](https://github.com/murzikkot978/web-todolist/commit/7ee03c73abbb8e8460cc76badf7e4ab3b2d8e3ec))
+* function foldered ([7a22da1](https://github.com/murzikkot978/web-todolist/commit/7a22da19e53052623ee3a326e1da2e3bb1e3092d))
+
 ## [1.2.0](https://github.com/murzikkot978/web-todolist/compare/v1.1.0...v1.2.0) (2025-01-13)
 
 
