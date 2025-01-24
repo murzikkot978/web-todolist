@@ -6,6 +6,7 @@ import { sortTodoByDate } from './todoActions/sortTodoByDate.ts'
 import { stateHandle } from './todoActions/stateHandle.ts'
 
 console.log('Hello from typescript')
+
 const input = document.querySelector<HTMLInputElement>('#todo-input')
 const contentInput = document.querySelector<HTMLInputElement>('#content-input')
 const output = document.querySelector<HTMLUListElement>('.todo-element')
@@ -134,4 +135,49 @@ if (url && output && overdueMessage) {
   } else {
     throw new Error('refresh page web')
   }
+}
+
+import { saveCategories } from './categoriesActions/saveCategories.ts'
+import { showCategories } from './categoriesActions/showCategories.ts'
+
+const categoriesInput =
+  document.querySelector<HTMLInputElement>('#categoriesInpute')
+const categoriesColor =
+  document.querySelector<HTMLInputElement>('#categoriesColor')
+const buttonCategoriesInput = document.querySelector<HTMLButtonElement>(
+  '#buttonCategoriesInpute',
+)
+export const urlCategories = new URL(
+  'https://api.todos.in.jt-lab.ch/categories',
+)
+
+if (buttonCategoriesInput && categoriesInput) {
+  buttonCategoriesInput.disabled = true
+  categoriesInput.addEventListener('input', () => {
+    stateHandle(buttonCategoriesInput, categoriesInput)
+  })
+}
+
+export interface CAT {
+  id: number
+  title: string
+  color: string
+}
+
+const response = await fetch(urlCategories)
+const categories = await response.json()
+
+for (const [indexCategories, categori] of categories.entries()) {
+  showCategories(categori, categories, indexCategories)
+}
+
+if (buttonCategoriesInput && categoriesInput && categoriesColor) {
+  if (/^#[0-9a-f]{3}([0-9a-f]{3})?$/i.test(categoriesColor.value)) {
+    buttonCategoriesInput.addEventListener('click', () => {
+      saveCategories(categoriesInput, categoriesColor, categories)
+    })
+  }
+  stateHandle(buttonCategoriesInput, categoriesInput)
+} else {
+  console.log('buttonCategoriesInput is not exist')
 }

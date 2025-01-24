@@ -9,7 +9,7 @@ function deleteTodo(
   todos: Todo[],
   messageOverdue: HTMLParagraphElement,
   OverdueMessage: HTMLDivElement,
-) {
+): void {
   fetch(`https://api.todos.in.jt-lab.ch/todos?id=eq.${todos[index].id}`, {
     method: 'DELETE',
     headers: {
@@ -17,8 +17,11 @@ function deleteTodo(
     },
     body: JSON.stringify(todos[index]),
   })
-    .then((response) => response.json())
-    .then((data) => console.log(data))
+    .then((response) => {
+      if (!response.ok) {
+        console.log('Error deleting todo.')
+      }
+    })
     .catch((error) => console.error(error))
   todos.splice(index, 1)
   output.innerHTML = ''

@@ -18,7 +18,6 @@ function changingOverdueMessage(
     } else {
       messageOverdue.textContent = ''
     }
-    overdueMessage.innerHTML = ''
     overdueMessage.appendChild(messageOverdue)
   }
 }
