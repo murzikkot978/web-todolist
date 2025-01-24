@@ -8,33 +8,48 @@
 </head>
 <body>
 <script type="module" src="/src/main.ts"></script>
-<div class="all-information">
-  <h1>My Day</h1>
-  <div id="overdue-message"></div>
-  <div class="todo-in">
-    <div>
-      <input type="text" name="todo-input" id="todo-input">
+<div class="all">
+  <div class="partCategories">
+    <h1>Categories</h1>
+    <div class="inputCat">
+      <div><input type="text" name="categoriesInpute" id="categoriesInpute">
+      </div>
+      <div><input type="text" name="categoriesColor" id="categoriesColor"></div>
+      <div>
+        <button id="buttonCategoriesInpute">add todo</button>
+      </div>
+    </div>
+    <div class="categories"></div>
+  </div>
+  <div class="all-information">
+    <h1>My Day</h1>
+    <div id="overdue-message"></div>
+    <div class="todo-in">
+      <div>
+        <input type="text" name="todo-input" id="todo-input">
+      </div>
+      <div>
+        <input type="text" name="content-input" id="content-input">
+      </div>
+      <div>
+        <input type="date" name="date-input" id="date-input">
+      </div>
+      <div>
+        <button id="add-todo-button">add todo</button>
+      </div>
+      <div class="sort">
+        <button id="sort-button">Sort</button>
+      </div>
+    </div>
+    <div id="todo-creation-error"></div>
+    <div class="output">
+      <ul class="todo-element"></ul>
     </div>
     <div>
-      <input type="text" name="content-input" id="content-input">
-    </div>
-    <div>
-      <input type="date" name="date-input" id="date-input">
-    </div>
-    <div>
-      <button id="add-todo-button">add todo</button>
-    </div>
-    <div class="sort">
-      <button id="sort-button">Sort</button>
+      <button id="delete-all">Clear all</button>
     </div>
   </div>
-  <div id="todo-creation-error"></div>
-  <div class="output">
-    <ul class="todo-element"></ul>
-  </div>
-  <div>
-    <button id="delete-all">Clear all</button>
-  </div>
+  <div class="categories1"></div>
 </div>
 </body>
 </html>

@@ -75,3 +75,53 @@ h1 {
   display: flex;
   border: black solid 3px;
 }
+
+.all {
+  display: flex;
+  justify-content: space-around;
+}
+
+.categories {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  overflow: scroll;
+  overflow-x: hidden;
+  border: black solid 3px;
+  height: 890px;
+  width: 400px;
+  background-color: linen;
+}
+
+.categories1 {
+  display: flex;
+  flex-direction: column;
+  height: 890px;
+  width: 465px;
+}
+
+.inputCat {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.partCategories {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ulCategories {
+  display: flex;
+  border: black solid 1px;
+  align-items: center;
+  justify-content: center;
+}
+
+.liCategories {
+  display: flex;
+  justify-content: space-between;
+  width: 450px;
+}

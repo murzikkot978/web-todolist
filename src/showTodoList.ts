@@ -23,7 +23,6 @@ function addToList(
     if (todo.content !== null) {
       li.append(`${todo.content}`)
     }
-    li.append(todo.id.toString())
     li2.textContent = `${todo.done}`
 
     const status = document.createElement('input')
