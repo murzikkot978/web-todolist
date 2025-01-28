@@ -1,11 +1,11 @@
+import type { Categoriesstruct } from '../main.ts'
 import { urlCategories } from '../main.ts'
-import type { CAT } from '../main.ts'
 import { showCategories } from './showCategories.ts'
 
 async function saveCategories(
   categoriesInput: HTMLInputElement,
   categoriesColor: HTMLInputElement,
-  categories: CAT[],
+  categories: Categoriesstruct[],
 ) {
   const title = categoriesInput.value.trim()
   const color = categoriesColor.value.trim()
@@ -25,7 +25,7 @@ async function saveCategories(
       },
       body: JSON.stringify(newCategories),
     })
-    const savedCategorie = (await response.json()) as CAT
+    const savedCategorie = (await response.json()) as Categoriesstruct
     categories.push(savedCategorie)
     showCategories(savedCategorie, categories, categories.length - 1)
     categoriesInput.value = ''

@@ -1,9 +1,9 @@
-import type { CAT } from '../main.ts'
+import type { Categoriesstruct } from '../main.ts'
 import { deleteCategories } from './deleteCategories.ts'
 
 function showCategories(
-  categori: CAT,
-  categories: CAT[],
+  categori: Categoriesstruct,
+  categories: Categoriesstruct[],
   indexCategori: number,
 ) {
   const ulCategories = document.createElement('ul')
