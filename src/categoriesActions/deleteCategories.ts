@@ -1,8 +1,8 @@
-import type { CAT } from '../main.ts'
+import type { Categoriesstruct } from '../main.ts'
 import { showCategories } from './showCategories.ts'
 
 function deleteCategories(
-  categories: CAT[],
+  categories: Categoriesstruct[],
   indexCategori: number,
   divCategories: HTMLDivElement,
 ): void {

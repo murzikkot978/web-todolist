@@ -1,17 +1,19 @@
-import type { Todo } from './main.ts'
+import { categoriesForTodo } from './categoriesActions/categories-for-todo.ts'
+import type { Categoriesstruct, Todo } from './main.ts'
+import { categories } from './main.ts'
 import { changeStatus } from './todoActions/changeStatus.ts'
 import { changingOverdueMessage } from './todoActions/changingOverdueMessage.ts'
 import { deleteTodo } from './todoActions/deleteTodo.ts'
 
 //Function add all button and todos
-function addToList(
+async function addToList(
   todo: Todo,
   index: number,
   output: HTMLUListElement,
   todos: Todo[],
   messageOverdue: HTMLParagraphElement,
   overdueMessage: HTMLDivElement,
-): void {
+): Promise<void> {
   if (output) {
     const ul = document.createElement('ul')
     ul.className = 'ul'
@@ -23,6 +25,39 @@ function addToList(
     if (todo.content !== null) {
       li.append(`${todo.content}`)
     }
+
+    const response = await fetch(
+      'https://api.todos.in.jt-lab.ch/todos?select=*,categories(id)',
+    )
+    const referenceBetvineCategoriesAndTodos = await response.json()
+
+    const select = document.createElement('select')
+    const option = document.createElement('option')
+
+    if (referenceBetvineCategoriesAndTodos[index].categories.length > 0) {
+      const indexCategory = categories.findIndex(
+        (p: Categoriesstruct) =>
+          p.id === referenceBetvineCategoriesAndTodos[index].categories[0].id,
+      )
+      option.value = ''
+      option.text = categories[indexCategory].title
+    } else {
+      option.value = ''
+      option.text = '--Choose a category--'
+    }
+
+    select.append(option)
+    for (const item of categories) {
+      const options = document.createElement('option')
+      options.value = item.id.toString()
+      options.text = item.title
+      select.append(options)
+    }
+    select.addEventListener('change', () => {
+      categoriesForTodo(select.value, todo.id)
+    })
+    li.append(select)
+
     li2.textContent = `${todo.done}`
 
     const status = document.createElement('input')
