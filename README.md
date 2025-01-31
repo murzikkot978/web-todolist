@@ -1,6 +1,6 @@
 # Web todo template Roman
 
-Version **v1.2.0** <!-- x-release-please-version -->
+Version **v2.0.0** <!-- x-release-please-version -->
 
 ## Setup
 
