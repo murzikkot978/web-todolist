@@ -1,4 +1,4 @@
-import type { Todo } from './main.ts'
+import type { Categoriesstruct, Todo } from './main.ts'
 import { url } from './main.ts'
 import { addToList } from './showTodoList.ts'
 
@@ -12,6 +12,7 @@ async function addToStorage(
   output: HTMLUListElement,
   messageOvedue: HTMLParagraphElement,
   overdueMessage: HTMLDivElement,
+  categories: Categoriesstruct[],
 ): Promise<void> {
   if (input && date_input && todoCreationError) {
     const title: string = input.value.trim()
@@ -55,6 +56,7 @@ async function addToStorage(
           todos,
           messageOvedue,
           overdueMessage,
+          categories,
         )
       } catch (error) {
         console.log(error)
