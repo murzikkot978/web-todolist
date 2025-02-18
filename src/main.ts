@@ -92,7 +92,15 @@ async function main() {
     const todos = await fetchGetTodo()
 
     for (const [index, todo] of todos.entries()) {
-      addToList(todo, index, output, todos, messageOverdue, overdueMessage, categories)
+      addToList(
+        todo,
+        index,
+        output,
+        todos,
+        messageOverdue,
+        overdueMessage,
+        categories,
+      )
     }
 
     //In this block we look all actions like click or keydown
@@ -118,7 +126,7 @@ async function main() {
             output,
             messageOverdue,
             overdueMessage,
-            categories
+            categories,
           )
         }
         stateHandle(button, input)
@@ -135,7 +143,7 @@ async function main() {
             output,
             messageOverdue,
             overdueMessage,
-            categories
+            categories,
           )
         }
         stateHandle(button, input)
@@ -144,7 +152,13 @@ async function main() {
         deleteAllTodo(output, todos, messageOverdue, overdueMessage)
       })
       sort.addEventListener('click', () => {
-        sortTodoByDate(todos, output, messageOverdue, overdueMessage, categories)
+        sortTodoByDate(
+          todos,
+          output,
+          messageOverdue,
+          overdueMessage,
+          categories,
+        )
       })
       date_input.addEventListener('keydown', (e: KeyboardEvent) => {
         if (e.key === 'Enter' && todoCreationError) {
@@ -158,7 +172,7 @@ async function main() {
             output,
             messageOverdue,
             overdueMessage,
-            categories
+            categories,
           )
         }
         stateHandle(button, input)
@@ -175,7 +189,7 @@ async function main() {
             output,
             messageOverdue,
             overdueMessage,
-            categories
+            categories,
           )
         }
         stateHandle(button, input)

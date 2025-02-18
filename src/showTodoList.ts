@@ -64,7 +64,14 @@ async function addToList(
     status.type = 'checkbox'
     status.checked = todo.done
     status.addEventListener('change', () => {
-      changeStatus(output, index, todos, messageOverdue, overdueMessage, categories)
+      changeStatus(
+        output,
+        index,
+        todos,
+        messageOverdue,
+        overdueMessage,
+        categories,
+      )
     })
     li2.appendChild(status)
 
@@ -102,7 +109,15 @@ async function addToList(
     ul.appendChild(li2)
     output.appendChild(ul)
     btnToDeleteTodo.addEventListener('click', () => {
-      deleteTodo(index, today, output, todos, overdueMessage, messageOverdue, categories)
+      deleteTodo(
+        index,
+        today,
+        output,
+        todos,
+        overdueMessage,
+        messageOverdue,
+        categories,
+      )
     })
     changingOverdueMessage(todos, today, messageOverdue, overdueMessage)
   } else {

@@ -1,4 +1,4 @@
-import type {Categoriesstruct, Todo} from '../main.ts'
+import type { Categoriesstruct, Todo } from '../main.ts'
 import { addToList } from '../showTodoList.ts'
 
 //Function change status for each todo
@@ -28,7 +28,15 @@ function changeStatus(
         output.innerHTML = ''
 
         todos.forEach((todo, i) => {
-          addToList(todo, i, output, todos, messageOvedue, overdueMessage, categories)
+          addToList(
+            todo,
+            i,
+            output,
+            todos,
+            messageOvedue,
+            overdueMessage,
+            categories,
+          )
         })
       })
       .catch((error) => {
