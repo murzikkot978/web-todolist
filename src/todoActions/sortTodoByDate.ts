@@ -1,4 +1,4 @@
-import type { Todo } from '../main.ts'
+import type { Categoriesstruct, Todo } from '../main.ts'
 import { addToList } from '../showTodoList.ts'
 
 let sorted = true
@@ -7,6 +7,7 @@ function sortTodoByDate(
   output: HTMLUListElement,
   messageOvedue: HTMLParagraphElement,
   overdueMessage: HTMLDivElement,
+  categories: Categoriesstruct[],
 ) {
   console.log(todos)
   if (sorted) {
@@ -19,7 +20,15 @@ function sortTodoByDate(
   if (output) {
     output.innerHTML = ''
     todos.forEach((todo, index) => {
-      addToList(todo, index, output, todos, messageOvedue, overdueMessage)
+      addToList(
+        todo,
+        index,
+        output,
+        todos,
+        messageOvedue,
+        overdueMessage,
+        categories,
+      )
     })
   }
 }

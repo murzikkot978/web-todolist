@@ -54,21 +54,6 @@ export interface Categoriesstruct {
   color: string
 }
 
-const response = await fetch(urlCategories)
-export const categories = await response.json()
-
-for (const [indexCategories, categori] of categories.entries()) {
-  showCategories(categori, categories, indexCategories)
-}
-
-//Button disable true||false
-if (button && input) {
-  button.disabled = true
-  input.addEventListener('input', () => {
-    stateHandle(button, input)
-  })
-}
-
 //Structure todos
 export interface Todo {
   id: number
@@ -78,106 +63,136 @@ export interface Todo {
   done: boolean
 }
 
-if (url && output && overdueMessage) {
+async function fetchGetCategories() {
+  const response = await fetch(urlCategories)
+  return await response.json()
+}
+
+async function fetchGetTodo() {
   const response = await fetch(url)
-  const todos = await response.json()
+  return await response.json()
+}
 
-  for (const [index, todo] of todos.entries()) {
-    addToList(todo, index, output, todos, messageOverdue, overdueMessage)
-  }
+async function main() {
+  if (url && output && overdueMessage) {
+    const categories = await fetchGetCategories()
 
-  //In this block we look all actions like click or keydown
-  if (
-    input &&
-    contentInput &&
-    button &&
-    deleteAll &&
-    output &&
-    sort &&
-    date_input &&
-    overdueMessage
-  ) {
-    input.addEventListener('keydown', (e: KeyboardEvent) => {
-      if (e.key === 'Enter' && todoCreationError) {
-        addToStorage(
-          input,
-          contentInput,
-          date_input,
-          todoCreationError,
-          creationErrorMessage,
-          todos,
-          output,
-          messageOverdue,
-          overdueMessage,
-        )
-      }
-      stateHandle(button, input)
-    })
-    button.addEventListener('click', () => {
-      if (todoCreationError) {
-        addToStorage(
-          input,
-          contentInput,
-          date_input,
-          todoCreationError,
-          creationErrorMessage,
-          todos,
-          output,
-          messageOverdue,
-          overdueMessage,
-        )
-      }
-      stateHandle(button, input)
-    })
-    deleteAll.addEventListener('click', () => {
-      deleteAllTodo(output, todos, messageOverdue, overdueMessage)
-    })
-    sort.addEventListener('click', () => {
-      sortTodoByDate(todos, output, messageOverdue, overdueMessage)
-    })
-    date_input.addEventListener('keydown', (e: KeyboardEvent) => {
-      if (e.key === 'Enter' && todoCreationError) {
-        addToStorage(
-          input,
-          contentInput,
-          date_input,
-          todoCreationError,
-          creationErrorMessage,
-          todos,
-          output,
-          messageOverdue,
-          overdueMessage,
-        )
-      }
-      stateHandle(button, input)
-    })
-    contentInput.addEventListener('keydown', (e: KeyboardEvent) => {
-      if (e.key === 'Enter' && todoCreationError) {
-        addToStorage(
-          input,
-          contentInput,
-          date_input,
-          todoCreationError,
-          creationErrorMessage,
-          todos,
-          output,
-          messageOverdue,
-          overdueMessage,
-        )
-      }
-      stateHandle(button, input)
-    })
-  } else {
-    throw new Error('refresh page web')
-  }
-  if (buttonCategoriesInput && categoriesInput && categoriesColor) {
-    if (/^#[0-9a-f]{3}([0-9a-f]{3})?$/i.test(categoriesColor.value)) {
-      buttonCategoriesInput.addEventListener('click', () => {
-        saveCategories(categoriesInput, categoriesColor, categories)
+    for (const [indexCategories, categori] of categories.entries()) {
+      showCategories(categori, categories, indexCategories)
+    }
+
+    //Button disable true||false
+    if (button && input) {
+      button.disabled = true
+      input.addEventListener('input', () => {
+        stateHandle(button, input)
       })
     }
-    stateHandle(buttonCategoriesInput, categoriesInput)
-  } else {
-    console.log('buttonCategoriesInput is not exist')
+
+    const todos = await fetchGetTodo()
+
+    for (const [index, todo] of todos.entries()) {
+      addToList(todo, index, output, todos, messageOverdue, overdueMessage, categories)
+    }
+
+    //In this block we look all actions like click or keydown
+    if (
+      input &&
+      contentInput &&
+      button &&
+      deleteAll &&
+      output &&
+      sort &&
+      date_input &&
+      overdueMessage
+    ) {
+      input.addEventListener('keydown', (e: KeyboardEvent) => {
+        if (e.key === 'Enter' && todoCreationError) {
+          addToStorage(
+            input,
+            contentInput,
+            date_input,
+            todoCreationError,
+            creationErrorMessage,
+            todos,
+            output,
+            messageOverdue,
+            overdueMessage,
+            categories
+          )
+        }
+        stateHandle(button, input)
+      })
+      button.addEventListener('click', () => {
+        if (todoCreationError) {
+          addToStorage(
+            input,
+            contentInput,
+            date_input,
+            todoCreationError,
+            creationErrorMessage,
+            todos,
+            output,
+            messageOverdue,
+            overdueMessage,
+            categories
+          )
+        }
+        stateHandle(button, input)
+      })
+      deleteAll.addEventListener('click', () => {
+        deleteAllTodo(output, todos, messageOverdue, overdueMessage)
+      })
+      sort.addEventListener('click', () => {
+        sortTodoByDate(todos, output, messageOverdue, overdueMessage, categories)
+      })
+      date_input.addEventListener('keydown', (e: KeyboardEvent) => {
+        if (e.key === 'Enter' && todoCreationError) {
+          addToStorage(
+            input,
+            contentInput,
+            date_input,
+            todoCreationError,
+            creationErrorMessage,
+            todos,
+            output,
+            messageOverdue,
+            overdueMessage,
+            categories
+          )
+        }
+        stateHandle(button, input)
+      })
+      contentInput.addEventListener('keydown', (e: KeyboardEvent) => {
+        if (e.key === 'Enter' && todoCreationError) {
+          addToStorage(
+            input,
+            contentInput,
+            date_input,
+            todoCreationError,
+            creationErrorMessage,
+            todos,
+            output,
+            messageOverdue,
+            overdueMessage,
+            categories
+          )
+        }
+        stateHandle(button, input)
+      })
+    } else {
+      throw new Error('refresh page web')
+    }
+    if (buttonCategoriesInput && categoriesInput && categoriesColor) {
+      if (/^#[0-9a-f]{3}([0-9a-f]{3})?$/i.test(categoriesColor.value)) {
+        buttonCategoriesInput.addEventListener('click', () => {
+          saveCategories(categoriesInput, categoriesColor, categories)
+        })
+      }
+      stateHandle(buttonCategoriesInput, categoriesInput)
+    } else {
+      console.log('buttonCategoriesInput is not exist')
+    }
   }
 }
+main()

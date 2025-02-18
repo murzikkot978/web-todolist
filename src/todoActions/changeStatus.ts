@@ -1,4 +1,4 @@
-import type { Todo } from '../main.ts'
+import type {Categoriesstruct, Todo} from '../main.ts'
 import { addToList } from '../showTodoList.ts'
 
 //Function change status for each todo
@@ -8,6 +8,7 @@ function changeStatus(
   todos: Todo[],
   messageOvedue: HTMLParagraphElement,
   overdueMessage: HTMLDivElement,
+  categories: Categoriesstruct[],
 ): void {
   let status: boolean
   if (output) {
@@ -27,7 +28,7 @@ function changeStatus(
         output.innerHTML = ''
 
         todos.forEach((todo, i) => {
-          addToList(todo, i, output, todos, messageOvedue, overdueMessage)
+          addToList(todo, i, output, todos, messageOvedue, overdueMessage, categories)
         })
       })
       .catch((error) => {

@@ -1,4 +1,4 @@
-import type { Todo } from '../main.ts'
+import type { Categoriesstruct, Todo } from '../main.ts'
 import { addToList } from '../showTodoList.ts'
 import { changingOverdueMessage } from './changingOverdueMessage.ts'
 
@@ -9,6 +9,7 @@ function deleteTodo(
   todos: Todo[],
   messageOverdue: HTMLParagraphElement,
   OverdueMessage: HTMLDivElement,
+  categories: Categoriesstruct[],
 ): void {
   fetch(`https://api.todos.in.jt-lab.ch/todos?id=eq.${todos[index].id}`, {
     method: 'DELETE',
@@ -26,7 +27,15 @@ function deleteTodo(
   todos.splice(index, 1)
   output.innerHTML = ''
   todos.forEach((todo, i) => {
-    addToList(todo, i, output, todos, messageOverdue, OverdueMessage)
+    addToList(
+      todo,
+      i,
+      output,
+      todos,
+      messageOverdue,
+      OverdueMessage,
+      categories,
+    )
   })
   changingOverdueMessage(todos, today, messageOverdue, OverdueMessage)
 }
